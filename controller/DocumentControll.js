@@ -217,6 +217,32 @@ const DocumentController = {
             res.status(500).send('Server error');
         }
     },
+  verifyMobile: async (req,res) =>{
+  try {
+    console.log(' request successfully');
+    console.log(req.query);  
+      
+      const pdfRecord = await Document.findOne({ hash: req.query.hash });
+
+      if (pdfRecord) {
+        res.download(pdfRecord.filePath, err => {
+            if (err) {
+                console.error("Error sending the file:", err);
+                res.status(500).send('Error sending the file');
+            } else {
+                console.log('File sent successfully');
+                res.status(200).end(); // Envoyer le statut 200
+            } 
+        });
+    } else {
+        res.status(200).json({ msg: 'No matching document found' });
+    }
+  }
+  catch(err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+  }
+}  ,
     verification: async (req,res) => {
       // try {
         const pdfPath = req.file.path;
