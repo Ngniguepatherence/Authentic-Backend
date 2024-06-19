@@ -14,6 +14,7 @@ router.post('/signqr', auth,upload.single('file'),DocumentC.signPdfAndQR);
 router.post('/verify',upload.single('file'), DocumentC.VerifyFile);
 router.post('/verifypdf',upload.single('file'), DocumentC.VerifyPdf);
 router.post('/verif',upload.single('file'), DocumentC.verification);
+router.get('/verifyMobile', DocumentC.verifyMobile);
 
 router.post('/verifyqr',upload.single('file'), DocumentC.verifyPdfWithQRCode);
 
